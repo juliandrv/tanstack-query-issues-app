@@ -35,10 +35,10 @@ export interface GithubIssue {
 }
 
 export enum AuthorAssociation {
-  Collaborator = 'COLLABORATOR',
-  Contributor = 'CONTRIBUTOR',
-  Member = 'MEMBER',
-  None = 'NONE',
+  Collaborator = "COLLABORATOR",
+  Contributor = "CONTRIBUTOR",
+  Member = "MEMBER",
+  None = "NONE",
 }
 
 export interface Label {
@@ -52,12 +52,12 @@ export interface Label {
 }
 
 export enum Color {
-  B60205 = 'b60205',
-  Bfdadc = 'bfdadc',
-  D4C5F9 = 'd4c5f9',
-  E7E7E7 = 'e7e7e7',
-  Fbca04 = 'fbca04',
-  The9149D1 = '9149d1',
+  B60205 = "b60205",
+  Bfdadc = "bfdadc",
+  D4C5F9 = "d4c5f9",
+  E7E7E7 = "e7e7e7",
+  Fbca04 = "fbca04",
+  The9149D1 = "9149d1",
 }
 
 export interface PullRequest {
@@ -71,8 +71,8 @@ export interface PullRequest {
 export interface Reactions {
   url: string;
   total_count: number;
-  '+1': number;
-  '-1': number;
+  "+1": number;
+  "-1": number;
   laugh: number;
   hooray: number;
   confused: number;
@@ -82,8 +82,9 @@ export interface Reactions {
 }
 
 export enum State {
-  Open = 'open',
-  Close = 'close',
+  All = "all",
+  Open = "open",
+  Close = "closed",
 }
 
 export interface SubIssuesSummary {
@@ -115,9 +116,9 @@ export interface User {
 }
 
 export enum Type {
-  User = 'User',
+  User = "User",
 }
 
 export enum UserViewType {
-  Public = 'public',
+  Public = "public",
 }

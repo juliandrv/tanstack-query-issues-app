@@ -5,6 +5,7 @@ import { FC } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { getIssue } from "../actions/get-issue.action";
 import { getIssueComments } from "../actions/get-issue-comments.action";
+import { timeSince } from "../../helpers/time-since";
 
 type Props = {
   issue: GithubIssue;
@@ -37,7 +38,7 @@ export const IssueItem: FC<Props> = ({ issue }) => {
   return (
     <div className="animate-fade-in flex items-center px-2 py-3 mb-5 border rounded-md bg-slate-900 hover:bg-slate-800">
       {issue.state === State.Close ? (
-        <FiCheckCircle size={30} color="min-w-10" />
+        <FiCheckCircle size={30} color="green" className="min-w-10" />
       ) : (
         <FiInfo size={30} color="red" className="min-w-10" />
       )}
@@ -52,9 +53,24 @@ export const IssueItem: FC<Props> = ({ issue }) => {
           {issue.title}
         </a>
         <span className="text-gray-500">
-          {/* TODO: days ago */}#{issue.number} opened 2 days ago by{" "}
+          {/* TODO: days ago */}#{issue.number} opened{" "}
+          {timeSince(issue.created_at)} ago by{" "}
           <span className="font-bold">{issue.user.login}</span>
         </span>
+
+        <div className="flex flex-wrap">
+          {issue.labels.map((label) => (
+            <span
+              key={label.id}
+              className="px-2 py-1 mt-1 mr-2 text-xs rounded-md"
+              style={{
+                border: `1px solid #${label.color}`,
+              }}
+            >
+              {label.name}
+            </span>
+          ))}
+        </div>
       </div>
 
       <img
