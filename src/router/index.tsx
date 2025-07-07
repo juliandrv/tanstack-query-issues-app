@@ -9,13 +9,13 @@ export const router = createBrowserRouter([
     element: <GitApp />,
     children: [
       { path: 'list', element: <ListView /> },
-      { path: 'issue/:id', element: <IssueView /> },
-      { path: '*', element: <Navigate to="list" /> },
+      { path: 'issue/:number', element: <IssueView /> },
+      { path: '*', element: <Navigate to='list' /> },
     ],
   },
   {
     path: '/',
-    element: <Navigate to="issues/list" />,
+    element: <Navigate to='issues/list' />,
   },
   {
     path: '*',
