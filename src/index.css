@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
   --animate-fade-in: fadeIn 0.3s ease-in-out;
@@ -47,7 +47,12 @@ pre {
 }
 
 .btn {
-  @apply bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded transition-all;
+  @apply bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded transition-all cursor-pointer;
+}
+
+a,
+button {
+  @apply cursor-pointer;
 }
 
 .active {
