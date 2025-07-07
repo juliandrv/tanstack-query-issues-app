@@ -2,19 +2,19 @@ import { useState } from "react";
 import LoadingSpinner from "../../shared/components/LoadingSpinner";
 import { IssueList } from "../components/IssueList";
 import { LabelPicker } from "../components/LabelPicker";
-import { useGetIssues } from "../hooks/useGetIssues";
 import { State } from "../interfaces/issue.interface";
+import { useGetIssuesInfinite } from "../hooks/useGetIssuesInfinite";
 
-export const ListView = () => {
+export const ListViewInfinite = () => {
   const [state, setState] = useState<State>(State.All);
   const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
 
-  const { issuesQuery, page, prevPage, nextPage } = useGetIssues({
+  const { issuesQuery } = useGetIssuesInfinite({
     state: state,
     selectedLabels: selectedLabels,
   });
 
-  const issues = issuesQuery.data ?? [];
+  const issues = issuesQuery.data?.pages.flat() ?? [];
 
   const onLabelSelected = (label: string) => {
     if (selectedLabels.includes(label)) {
@@ -30,29 +30,25 @@ export const ListView = () => {
         {issuesQuery.isLoading ? (
           <LoadingSpinner />
         ) : (
-          <>
+          <div className="flex flex-col justify-center">
             <IssueList issues={issues} onStateChange={setState} state={state} />
 
-            <div className="flex justify-between items-center">
-              <button
-                onClick={prevPage}
-                className="p-2 bg-blue-500 rounded-md hover:bg-blue-700 transition-all disabled:opacity-50 disabled:pointer-events-none"
-                disabled={page === 1}
-              >
-                Prev
-              </button>
-
-              <span>page {page}</span>
-
-              <button
-                onClick={nextPage}
-                className="p-2 bg-blue-500 rounded-md hover:bg-blue-700 transition-all disabled:opacity-50 disabled:pointer-events-none"
-                disabled={issues.length < 5}
-              >
-                Next
-              </button>
-            </div>
-          </>
+            <button
+              onClick={() => {
+                issuesQuery.fetchNextPage();
+              }}
+              className="p-2 bg-blue-500 rounded-md hover:bg-blue-700 transition-all disabled:opacity-50 disabled:pointer-events-none"
+              disabled={
+                issuesQuery.isFetchingNextPage || !issuesQuery.hasNextPage
+              }
+            >
+              {issuesQuery.isFetchingNextPage ? (
+                <LoadingSpinner />
+              ) : (
+                "Load More"
+              )}
+            </button>
+          </div>
         )}
       </div>
 
